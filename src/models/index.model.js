@@ -1,6 +1,9 @@
-import Question from "./Question.model.js";
-import Quiz from "./Quiz.model.js";
+
+import questionModel from './question.model.js';
+import quizModel from './quiz.model.js';
+
 export default {
-    Question,
-    Quiz
+   questionModel,
+    quizModel
+    
 }
