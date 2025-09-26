@@ -1,4 +1,5 @@
 import models from '../models/index.model.js';
+import { calculateScore } from '../utils/quizUtils.js';
 import { quizSchema } from '../Validations/quiz.validation.js';
 
 const addQuiz =async (req, res) => {
@@ -96,20 +97,7 @@ const submitQuiz=async(req, res) => {
           return res.status(404).json({message:"Quiz not found"});
         }
 
-
-        let score = 0;
-        let questions={};
-        quiz.questions.forEach((question) => {
-            questions[question._id]=question.answer; 
-        });
-   
-        for(const answer of answers){
-              if(questions[answer.qid]===answer.aid){
-                score++;
-              }
-        }
-
-        return res.status(200).json({score, totalQuestions: quiz.questions.length});           
+        return res.status(200).json(calculateScore(quiz.questions,answers));           
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }
